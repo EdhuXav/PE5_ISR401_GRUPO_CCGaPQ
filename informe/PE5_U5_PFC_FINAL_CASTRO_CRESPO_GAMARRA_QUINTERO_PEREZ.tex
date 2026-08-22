@@ -738,11 +738,123 @@ Se aprobó por riesgo regulatorio. Incorporado en RF-23.
 % con su estado (aprobado/rechazado/en revisión) y descripción.
 
 
+%==============================================================
+\section{Gestión, Línea Base y Trazabilidad End-to-End}
+\label{sec:trazabilidad}
+%==============================================================
+
+\subsection{Trazabilidad End-to-End: Fundamento}
+
+La trazabilidad end-to-end conecta cada requisito con su fuente (trazabilidad pre-especificación) y con todos los artefactos derivados hasta el caso de prueba (trazabilidad post-especificación) \cite{gotel1994}. La revisión sistemática de la literatura sobre trazabilidad pre-especificación confirma que la mayor parte de los problemas de rastreabilidad se origina en la falta de vínculo entre las fuentes de stakeholders y los requisitos formales \cite{mucha2024}. En CarniCore, la cadena mínima implementada es: \textbf{Fuente/EV} $\rightarrow$ \textbf{RF} $\rightarrow$ \textbf{CU} $\rightarrow$ \textbf{Clase UML} $\rightarrow$ \textbf{Proceso} $\rightarrow$ \textbf{Estado} $\rightarrow$ \textbf{BDD} $\rightarrow$ \textbf{CP} $\rightarrow$ \textbf{HU (Trello)}.
+
+\subsection{Control de Cambios y Línea Base}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{1.2cm}|p{2.2cm}|p{2.2cm}|p{7.2cm}|}
+\hline
+\textbf{Versión} & \textbf{Fecha} & \textbf{Etiqueta Git} & \textbf{Descripción del estado} \\
+\hline
+v1.0 & 31/05/2026 & \texttt{v1.0-PE1} & ERS inicial con 10 RF preliminares, sin modelos UML. \\
+v2.0 & 12/07/2026 & \texttt{v2.0-PE2} & ERS con 15 RF, 6 RNF y mockups de baja fidelidad. \\
+v3.0 & 02/08/2026 & \texttt{baseline-v1.1} & ERS completo (25 RF, 15 RNF), inspección Fagan, CCB aprobado. \\
+v4.0 & 21/08/2026 & \texttt{v4.0-final} & PE5: incorporación RF-26 y RF-27, IA, métricas y trazabilidad consolidada. \\
+\hline
+\end{tabular}
+\caption{Control de versiones y línea base del ERS/SRS de CarniCore}
+\label{tab:linea_base}
+\end{table}
+
+El repositorio del proyecto integrador se encuentra en \url{https://github.com/EdhuXav/PE5_ISR401_GRUPO_CCGaPQ} (rama \texttt{main}, tag \texttt{baseline-v1.1}).
+
+La trazabilidad en la PE4 se implementó en Trello (\url{https://trello.com/es/home}) con 5 épicas (EPIC-01 a EPIC-05) y 24 tarjetas, con etiquetas personalizadas: Prioridad MoSCoW, Fuente del requisito, Estado de verificación. El uso de historias de usuario en formato Connextra con criterios Gherkin vinculadas al \textit{product backlog} sigue las recomendaciones de la literatura ágil para mantener la sincronización entre especificación y gestión \cite{hoy2023}.
+
+% -------------------------------------------------------
+% CAPTURA REPOSITORIO 2: Historial de commits y etiquetas Git
+% -------------------------------------------------------
+% Instrucción: Guarda la captura como "figuras/repo_commits.png"
+% Debe mostrar el historial de commits con autores distribuidos,
+% y los tags v1.0-PE1, v2.0-PE2, baseline-v1.1, v4.0-final visibles.
+  
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{figuras/tag_historial_commits.jpeg}
+  \caption{Historial de commits}
+  \label{fig:despliegue}
+\end{figure}
+
+
+\subsection{Diagnóstico de la Trazabilidad}
+
+Antes de la PE5, la matriz v3.0 presentaba los siguientes problemas:
+
+\begin{enumerate}
+  \item \textbf{Requisito huérfano:} RF-17 sin enlace a ningún caso de uso. \textbf{Acción:} enlazado a CU-01 como flujo alternativo (corrección D-02).
+  \item \textbf{Cadena rota:} RF-18 (Could) sin historia de usuario ni criterio BDD. \textbf{Acción:} justificado por prioridad Could; nota en la columna ``Estado de la traza''.
+  \item \textbf{Sincronización backlog:} El backlog cierra con \textbf{27 historias} en total. RF-18 (Could) permanece sin HU, justificado por su prioridad baja.
+\end{enumerate}
+
+Al cierre de la PE5: \textbf{0 cadenas rotas}, \textbf{0 requisitos huérfanos sin tratamiento}. La sincronización backlog-ERS sobre los 27 RF alcanza \textbf{26/27 = 96,3\%}.
+
+\subsection{Matriz de Trazabilidad Final (End-to-End)}
+
+La Tabla~\ref{tab:traza_final} presenta la matriz de trazabilidad final con la cadena completa. La matriz completa en formato CSV se ubica en \texttt{trazabilidad/trazabilidad\_final\_PE5.csv} del repositorio.
+
+\scriptsize
+\begin{longtable}{|p{0.5cm}|p{1.4cm}|p{0.8cm}|p{2cm}|p{1.3cm}|p{1.3cm}|p{2.3cm}|p{0.8cm}|p{1.0cm}|p{1.1cm}|}
+\hline
+\textbf{RF} & \textbf{Fuente} & \textbf{CU} & \textbf{Clase} & \textbf{Proceso} & \textbf{Estado} & \textbf{Criterio BDD (extracto)} & \textbf{CP} & \textbf{HU} & \textbf{Estado traza} \\
+\hline
+RF-01 & Propietaria EV-01 & CU-01 & Proveedor & P-Prov & -- & Dado RUC inv., Cuando guarda, Entonces rechaza & CP-01 & HU-01 & Completa \\
+RF-02 & Propietaria EV-02 & CU-02 & GuiaOrigen & P-Guia & -- & Dado sin guía, Cuando ingresa lote, Entonces rechaza & CP-02 & HU-02 & Completa \\
+RF-03 & Propietaria EV-03 & CU-01 & Animal/Lote & P-Ing & -- & Dado arete dup., Cuando registra, Entonces rechaza & CP-03 & HU-03 & Completa \\
+RF-04 & Propietaria EV-04 & CU-03 & RegistroPesaje & P-Pes & -- & Dado peso+precio, Cuando confirma, Entonces costo $<$1s & CP-04 & HU-04 & Completa \\
+RF-05 & Propietaria EV-04 & CU-03 & RegistroPesaje & P-Pes & -- & Dado pesaje conf., Cuando emite, Entonces ticket OK & CP-05 & HU-05 & Completa \\
+RF-06 & Carnicero EV-05 & CU-04 & Corte & P-Des & -- & Dado suma cortes $>$ peso+merma, Cuando confirma, Entonces aviso & CP-06 & HU-06 & Completa \\
+RF-07 & Propietaria EV-06 & CU-06 & ProdAlmacenado & P-Inv & Disponible & Dado sin sección, Cuando ingresa, Entonces rechaza & CP-07 & HU-07 & Completa \\
+RF-08 & Propietaria EV-06 & CU-07 & ProdAlmacenado & P-Vida & Próx.vencer & Dado $\leq$1 día, Cuando calcula, Entonces alerta & CP-08 & HU-08 & Completa \\
+RF-09 & Propietaria EV-07 & CU-10 & BajaProducto & P-Baja & B.pendiente & Dado sin aprob., Cuando registra, Entonces inv. no cambia & CP-09 & HU-09 & Completa \\
+RF-10 & Bodega EV-08 & CU-09 & Venta & P-Vent & Vendido & Dado venta conf., Cuando registra, Entonces descuenta & CP-10 & HU-10 & Completa \\
+RF-11 & Propietaria EV-03 & CU-08 & Lote/Animal & P-Traz & -- & Dado arete válido, Cuando consulta, Entonces cadena $<$3s & CP-11 & HU-11 & Completa \\
+RF-12 & Admin. EV-09 & CU-11 & ProdAlmacenado & P-Cont & -- & Dado conteo físico, Cuando compara, Entonces diferencia OK & CP-12 & HU-12 & Completa \\
+RF-13 & Propietaria EV-08 & CU-12 & Reporte & P-Rep & -- & Dado rango fechas, Cuando genera, Entonces PDF = suma registros & CP-13 & HU-13 & Completa \\
+RF-14 & Propietaria EV-08 & CU-12 & Reporte & P-Rep & -- & Dado nueva venta, Cuando actualiza, Entonces panel sin recarga & CP-14 & HU-14 & Completa \\
+RF-15 & Propietaria EV-01 & -- & Usuario & P-Usr & -- & Dado usuario desact., Cuando inicia sesión, Entonces rechaza & CP-15 & HU-15 & Completa \\
+RF-16 & Propietaria EV-09 & CU-06 & ProdAlmacenado & P-Inv & -- & Dado fecha pasada, Cuando consulta, Entonces stock 0\% error & CP-16 & HU-16 & Completa \\
+RF-17 & Admin. EV-10 & CU-01 alt. & Proveedor & P-Prov & -- & Dado coordenadas fuera rango, Cuando guarda, Entonces valida & CP-17 & HU-17 & Completa \\
+RF-18 & Propietaria EV-11 & -- & ConfigPrecio & P-Prec & -- & (Could -- sin HU en MVP) & -- & -- & Justificada \\
+RF-19 & Propietaria EV-11 & CU-03 & ConfigPrecio & P-Prec & -- & Dado precio futuro, Cuando pesaje anterior, Entonces precio prev. & CP-19 & HU-19 & Completa \\
+RF-20 & Propietaria EV-12 & CU-10 & Incidente & P-Inc & -- & Dado incidente reg., Cuando baja asoc., Entonces evidencia enlaz. & CP-20 & HU-20 & Completa \\
+RF-21 & Bodega EV-13 & CU-01/03 & Offline & P-Off & -- & Dado offline, Cuando reconecta, Entonces sync $<$5 min & CP-21 & HU-21 & Completa \\
+RF-22 & Bodega EV-14 & CU-09 & Devolucion & P-Dev & Devuelto & Dado devol., Cuando registra, Entonces vinculada a factura orig. & CP-22 & HU-22 & Completa \\
+RF-23 & Admin. EV-15 & CU-08 & Trazabilidad & P-Traz & -- & Dado traz.+firma vet., Cuando exporta, Entonces PDF completo & CP-23 & HU-23 & Completa \\
+RF-24 & Bodega EV-09 & CU-06 & ProdAlmacenado & P-Inv & -- & Dado código válido, Cuando busca, Entonces resultado $<$2s & CP-24 & HU-24 & Completa \\
+RF-25 & Cliente EV-03 & CU-08 & Trazabilidad & P-Traz & -- & Dado QR gen., Cuando escanea, Entonces vista pública correcta & CP-25 & HU-25 & Completa \\
+RF-26 & CCB -- D-01 & CU-08 & QrPublico & P-Traz & -- & Dado QR escanea, Cuando consulta, Entonces solo campos públicos & CP-26 & HU-26 & Completa \\
+RF-27 & CCB -- RFC-01 & CU-12 & Reporte & P-Rep & -- & Dado filtro proveedor, Cuando genera, Entonces desglose correcto & CP-27 & HU-27 & Completa \\
+\hline
+\caption{Matriz de trazabilidad final (RF) -- CarniCore PE5 v4.0}
+\label{tab:traza_final}
+\end{longtable}
+\normalsize
+
+% -------------------------------------------------------
+% CAPTURA TRELLO 5: Tablero de historias en estado "Hecho"
+% -------------------------------------------------------
+% Instrucción: Guarda la captura como "figuras/trello_hecho.png"
+% Debe mostrar la lista "Hecho" de Trello con las 26 HU completadas
+% (HU-01 a HU-27, excluyendo RF-18).
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{figuras/trello_hecho.png}
+  \caption{Historias de usuario completadas en Trello -- sincronización backlog--ERS}
+  \label{fig:despliegue}
+\end{figure}
+
+
 %--- REFERENCIAS ---
 \newpage
 \bibliographystyle{IEEEtran}
 \bibliography{referencias}
-
-
 
 \end{document}
