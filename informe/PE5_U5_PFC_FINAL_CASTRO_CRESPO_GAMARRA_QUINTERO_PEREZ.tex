@@ -1024,6 +1024,129 @@ Aplica LOPDP & Sí (datos de ventas con nombre/RUC) & No (datos operacionales si
 \end{longtable}
 
 
+%==============================================================
+\section{Métricas de Calidad del ERS}
+\label{sec:metricas}
+%==============================================================
+
+\subsection{Instrumento de Auditoría}
+
+La auditoría de calidad se realizó con las seis métricas definidas en la Guía PE5, derivadas de ISO/IEC 25010:2023 \cite{iso25010}. Se calculan sobre el universo de \textbf{40 requisitos base} (25 RF originales y 15 RNF).
+
+\textbf{Conteos base:}
+\begin{itemize}
+  \item Total de requisitos base: 25 RF + 15 RNF = \textbf{40 requisitos}
+  \item Requisitos con criterio BDD comprobable (v3.0): 37/40
+  \item Requisitos con criterio BDD comprobable (v4.0): 39/40
+  \item Casos de uso identificados: 12; CU especificados: 12
+  \item Actores: 5; actores con $\geq$1 RF: 5
+  \item Pares de requisitos analizados: 780 ($=\binom{40}{2}$, análisis exhaustivo)
+  \item Conflictos detectados (v3.0): 1 (D-03)
+  \item Defectos residuales en re-inspección PE5 (v4.0): 0
+\end{itemize}
+
+\subsection{Cálculo de las Seis Métricas}
+
+\subsubsection{M1 -- Completitud}
+
+\[ M1a_{antes} = \frac{38}{40} \times 100 = 95{,}0\% \]
+\[ M1a_{despues} = \frac{39}{40} \times 100 = \mathbf{97{,}5\%} \]
+
+\[ M1b = \frac{12}{12} \times 100 = \mathbf{100{,}0\%} \qquad M1c = \frac{5}{5} \times 100 = \mathbf{100{,}0\%} \]
+
+\textbf{Veredicto M1:} $\checkmark$ CUMPLE (M1a $\geq$ 95\%, M1b = 100\%, M1c = 100\%)
+
+\subsubsection{M2 -- Consistencia}
+
+\[ M2_{antes} = 1 - \frac{1}{780} = 0{,}9987 \]
+\[ M2_{despues} = 1 - \frac{0}{780} = \mathbf{1{,}0000} \]
+
+\textbf{Veredicto M2:} $\checkmark$ CUMPLE (M2 $\geq$ 0,98 y cero conflictos abiertos)
+
+\subsubsection{M3 -- Verificabilidad}
+
+\[ M3_{antes} = \frac{37}{40} \times 100 = 92{,}5\% \]
+\[ M3_{despues} = \frac{39}{40} \times 100 = \mathbf{97{,}5\%} \]
+
+\textbf{Veredicto M3:} $\checkmark$ CUMPLE (M3 $\geq$ 90\%, RF críticos al 100\%)
+
+\subsubsection{M4 -- Trazabilidad}
+
+\[ M4ade_{antes} = \frac{23}{25} \times 100 = 92{,}0\% \]
+\[ M4ade_{despues} = \frac{24}{25} \times 100 = \mathbf{96{,}0\%} \]
+\[ M4atr = \frac{25}{25} \times 100 = \mathbf{100{,}0\%} \]
+
+\textbf{Veredicto M4:} $\checkmark$ CUMPLE (M4ade $\geq$ 90\%; M4atr = 100\%)
+
+\subsubsection{M5 -- Modificabilidad}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{1.5cm}|p{5cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{RF} & \textbf{Razón de selección} & \textbf{RF afectados al modificar} & \textbf{N.º afectados} \\
+\hline
+RF-03 & Nodo de mayor dependencia & RF-04, RF-06, RF-07, RF-11 & 4 \\
+RF-07 & Hub de inventario & RF-08, RF-09, RF-10, RF-12, RF-16, RF-24 & 6 \\
+RF-10 & Ventas (salida principal) & RF-13, RF-14, RF-22 & 3 \\
+RF-04 & Pesaje (cálculo central) & RF-05, RF-19 & 2 \\
+RF-11 & Trazabilidad (consulta) & RF-23, RF-25 & 2 \\
+RF-15 & Gestión de usuarios & RF-01 & 1 \\
+RF-20 & Incidentes de energía & RF-09 & 1 \\
+\hline
+\multicolumn{3}{|r|}{\textbf{Total}} & \textbf{19} \\
+\hline
+\end{tabular}
+\caption{Cálculo de acoplamiento para M5 (Modificabilidad) -- CarniCore}
+\label{tab:m5}
+\end{table}
+
+\[ M5 = \frac{4 + 6 + 3 + 2 + 2 + 1 + 1}{7} = \frac{19}{7} = \mathbf{2{,}71} \text{ requisitos afectados en promedio} \]
+
+\textbf{Veredicto M5:} $\checkmark$ CUMPLE (M5 $\leq$ 3,0)
+
+\subsubsection{M6 -- Corrección}
+
+\[ M6_{antes} = \frac{4}{40} = 0{,}10 \text{ defectos por requisito} \]
+\[ M6_{despues} = \frac{0}{40} = \mathbf{0{,}00} \text{ defectos por requisito} \]
+
+\textbf{Veredicto M6:} $\checkmark$ CUMPLE (M6 $\leq$ 0,05)
+
+\subsection{Tabla de Auditoría Consolidada (Antes/Después)}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{|p{0.7cm}|p{1.9cm}|p{1.6cm}|p{1.7cm}|p{1.5cm}|p{2.1cm}|p{1cm}|p{2.1cm}|}
+\hline
+\textbf{M.} & \textbf{Métrica} & \textbf{Antes v3.0} & \textbf{Después v4.0} & \textbf{Valor ref.} & \textbf{Ref. normativa} & \textbf{Cumple} & \textbf{Acción} \\
+\hline
+M1a & Completitud atributos & 95,0\% & \textbf{97,5\%} & $\geq$ 95\% & ISO/IEC/IEEE 29148:2018 & Sí & Corr. RNF-05; RF-18 documentado \\
+\hline
+M1b & CU especificados & 100,0\% & \textbf{100,0\%} & 100\% & ISO/IEC/IEEE 29148:2018 & Sí & -- \\
+\hline
+M1c & Actores con RF & 100,0\% & \textbf{100,0\%} & 100\% & ISO/IEC/IEEE 29148:2018 & Sí & -- \\
+\hline
+M2 & Consistencia & 0,9987 & \textbf{1,0000} & $\geq$ 0,98 & ISO/IEC 25010:2023 & Sí & Corr. D-03 \\
+\hline
+M3 & Verificabilidad & 92,5\% & \textbf{97,5\%} & $\geq$ 90\% & ISO/IEC/IEEE 29148:2018 & Sí & Corr. D-01 y RF-25 \\
+\hline
+M4ade & Traza adelante & 92,0\% & \textbf{96,0\%} & $\geq$ 90\% & ISO/IEC/IEEE 29148:2018 & Sí & Corr. D-02; RF-18 justificado \\
+\hline
+M4atr & Traza hacia atrás & 100,0\% & \textbf{100,0\%} & 100\% & ISO/IEC/IEEE 29148:2018 & Sí & -- \\
+\hline
+M5 & Modificabilidad & 2,71 req & \textbf{2,71 req} & $\leq$ 3,0 & ISO/IEC 25010:2023 & Sí & -- \\
+\hline
+M6 & Corrección & 0,10 def/req & \textbf{0,00 def/req} & $\leq$ 0,05 & ISO/IEC 25010:2023 & Sí & Corr. D-01 a D-04 PE5 \\
+\hline
+\end{tabular}
+\normalsize
+\caption{Tabla de auditoría de calidad del ERS CarniCore: antes (v3.0) y después (v4.0)}
+\label{tab:auditoria}
+\end{table}
+
+\textbf{Resultado global:} \textbf{6/6 métricas cumplen} el valor de referencia sobre el universo de 40 requisitos base del ERS v4.0.
+
 %--- REFERENCIAS ---
 \newpage
 \bibliographystyle{IEEEtran}
