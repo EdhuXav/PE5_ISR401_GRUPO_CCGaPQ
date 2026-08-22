@@ -1,0 +1,61 @@
+Fila,ID,Tipo,Fuente,CU,Clase UML,Proceso,Estado,Criterio BDD (extracto),CP,HU (Trello),Trazas base,Estado de traza
+1,RF-01,RF,Propietaria EV-01,CU-01,Proveedor,P-Prov,--,Dado RUC invalido / Cuando guarda / Entonces rechaza,CP-01,HU-01,,Completa
+2,RF-02,RF,Propietaria EV-02,CU-02,GuiaOrigen,P-Guia,--,Dado sin guia / Cuando ingresa lote / Entonces rechaza,CP-02,HU-02,,Completa
+3,RF-03,RF,Propietaria EV-03,CU-01,Animal/Lote,P-Ing,--,Dado arete duplicado / Cuando registra / Entonces rechaza,CP-03,HU-03,,Completa
+4,RF-04,RF,Propietaria EV-04,CU-03,RegistroPesaje,P-Pes,--,Dado peso+precio / Cuando confirma / Entonces costo < 1s,CP-04,HU-04,,Completa
+5,RF-05,RF,Propietaria EV-04,CU-03,RegistroPesaje,P-Pes,--,Dado pesaje confirmado / Cuando emite / Entonces ticket OK,CP-05,HU-05,,Completa
+6,RF-06,RF,Carnicero EV-05,CU-04,Corte,P-Des,--,Dado suma cortes > peso+merma / Cuando confirma / Entonces aviso,CP-06,HU-06,,Completa
+7,RF-07,RF,Propietaria EV-06,CU-06,ProdAlmacenado,P-Inv,Disponible,Dado sin seccion / Cuando ingresa / Entonces rechaza,CP-07,HU-07,,Completa
+8,RF-08,RF,Propietaria EV-06,CU-07,ProdAlmacenado,P-Vida,Prox.vencer,Dado <= 1 dia / Cuando calcula / Entonces alerta,CP-08,HU-08,,Completa
+9,RF-09,RF,Propietaria EV-07,CU-10,BajaProducto,P-Baja,B.pendiente,Dado sin aprobacion / Cuando registra / Entonces inv. no cambia,CP-09,HU-09,,Completa
+10,RF-10,RF,Bodega EV-08,CU-09,Venta,P-Vent,Vendido,Dado venta confirmada / Cuando registra / Entonces descuenta,CP-10,HU-10,,Completa
+11,RF-11,RF,Propietaria EV-03,CU-08,Lote/Animal,P-Traz,--,Dado arete valido / Cuando consulta / Entonces cadena < 3s,CP-11,HU-11,,Completa
+12,RF-12,RF,Admin. EV-09,CU-11,ProdAlmacenado,P-Cont,--,Dado conteo fisico / Cuando compara / Entonces diferencia OK,CP-12,HU-12,,Completa
+13,RF-13,RF,Propietaria EV-08,CU-12,Reporte,P-Rep,--,Dado rango fechas / Cuando genera / Entonces PDF = suma registros,CP-13,HU-13,,Completa
+14,RF-14,RF,Propietaria EV-08,CU-12,Reporte,P-Rep,--,Dado nueva venta / Cuando actualiza / Entonces panel sin recarga,CP-14,HU-14,,Completa
+15,RF-15,RF,Propietaria EV-01,--,Usuario,P-Usr,--,Dado usuario desactivado / Cuando inicia sesion / Entonces rechaza,CP-15,HU-15,,Completa
+16,RF-16,RF,Propietaria EV-09,CU-06,ProdAlmacenado,P-Inv,--,Dado fecha pasada / Cuando consulta / Entonces stock 0% error,CP-16,HU-16,,Completa
+17,RF-17,RF,Admin. EV-10,CU-01 alt.,Proveedor,P-Prov,--,Dado coordenadas fuera rango / Cuando guarda / Entonces valida,CP-17,HU-17,,Completa
+18,RF-18,RF,Propietaria EV-11,--,ConfigPrecio,P-Prec,--,Could - sin HU en MVP (prioridad baja justificada),--,--,,Justificada
+19,RF-19,RF,Propietaria EV-11,CU-03,ConfigPrecio,P-Prec,--,Dado precio futuro / Cuando pesaje anterior / Entonces precio previo,CP-19,HU-19,,Completa
+20,RF-20,RF,Propietaria EV-12,CU-10,Incidente,P-Inc,--,Dado incidente registrado / Cuando baja asoc. / Entonces evidencia enlazada,CP-20,HU-20,,Completa
+21,RF-21,RF,Bodega EV-13,CU-01/03,Offline,P-Off,--,Dado offline / Cuando reconecta / Entonces sync < 5 min,CP-21,HU-21,,Completa
+22,RF-22,RF,Bodega EV-14,CU-09,Devolucion,P-Dev,Devuelto,Dado devolucion / Cuando registra / Entonces vinculada a factura original,CP-22,HU-22,,Completa
+23,RF-23,RF,Admin. EV-15,CU-08,Trazabilidad,P-Traz,--,Dado traz.+firma vet. / Cuando exporta / Entonces PDF completo,CP-23,HU-23,,Completa
+24,RF-24,RF,Bodega EV-09,CU-06,ProdAlmacenado,P-Inv,--,Dado codigo valido / Cuando busca / Entonces resultado < 2s,CP-24,HU-24,,Completa
+25,RF-25,RF,Cliente EV-03,CU-08,Trazabilidad,P-Traz,--,Dado QR generado / Cuando escanea / Entonces vista publica correcta,CP-25,HU-25,,Completa
+26,RF-26,RF,CCB - D-01,CU-08,QrPublico,P-Traz,--,Dado QR escanea / Cuando consulta / Entonces solo campos publicos,CP-26,HU-26,,Completa
+27,RF-27,RF,CCB - RFC-01,CU-12,Reporte,P-Rep,--,Dado filtro proveedor / Cuando genera / Entonces desglose correcto,CP-27,HU-27,,Completa
+28,RNF-01,RNF,Propietaria EV-04,CU-03,RegistroPesaje,P-Pes,--,Dado 5 usuarios concurrentes / Cuando registran / Entonces respuesta < 1s,CP-RNF-01,--,,Completa
+29,RNF-02,RNF,Propietaria EV-06,--,Sistema,P-Disp,--,Dado caida del sistema / Cuando se recupera / Entonces RTO <= 30 min,CP-RNF-02,--,,Completa
+30,RNF-03,RNF,Propietaria EV-01,--,Usuario,P-Usr,--,Dado intento sin MFA / Cuando accede a baja / Entonces bloqueado,CP-RNF-03,--,,Completa
+31,RNF-04,RNF,Propietaria EV-08,CU-12,Reporte,P-Rep,--,Dado usuario sin capacitacion / Cuando usa modulo / Entonces <= 3 errores,CP-RNF-04,--,,Completa
+32,RNF-05,RNF,Equipo (D-01 PE5),--,Sistema,P-Mant,--,Dado cambio en modulo / Cuando mide impacto / Entonces <= 10% modulos adyacentes,CP-RNF-05,--,,Completa
+33,RNF-06,RNF,Admin. EV-10,--,Sistema,P-Port,--,Dado navegador moderno / Cuando accede / Entonces interfaz funcional,CP-RNF-06,--,,Completa
+34,RNF-07,RNF,Propietaria EV-07,CU-10,BajaProducto,P-Baja,--,Dado baja aprobada / Cuando audita / Entonces log con usuario y timestamp,CP-RNF-07,--,,Completa
+35,RNF-08,RNF,Propietaria EV-02,CU-02,GuiaOrigen,P-Guia,--,Dado guia registrada / Cuando verifica / Entonces campos Agrocalidad completos,CP-RNF-08,--,,Completa
+36,RNF-09,RNF,Bodega EV-09,CU-03,RegistroPesaje,P-Pes,--,Dado balanza Ohaus ASCII conectada / Cuando pesa / Entonces lectura automatica,CP-RNF-09,--,,Completa
+37,RNF-10,RNF,Admin. EV-11,--,ConfigPrecio,P-Prec,--,Dado nuevo tipo de ganado / Cuando configura / Entonces sin cambios en modulos existentes,CP-RNF-10,--,,Completa
+38,RNF-11,RNF,Propietaria EV-06,CU-07,ProdAlmacenado,P-Vida,--,Dado 100 productos / Cuando calcula vidas utiles / Entonces resultado < 2s,CP-RNF-11,--,,Completa
+39,RNF-12,RNF,CCB - RFC-02,--,Sistema,P-Seg,--,Dado datos en reposo / Cuando audita / Entonces cifrado AES-256 con KMS rotacion 90 dias,CP-RNF-12,--,,Completa
+40,RNF-13,RNF,Propietaria EV-08,CU-12,Reporte,P-Rep,--,Dado reporte exportado / Cuando abre / Entonces formato PDF valido,CP-RNF-13,--,,Completa
+41,RNF-14,RNF,Bodega EV-13,CU-01/03,Offline,P-Off,--,Dado 8h offline / Cuando reconecta / Entonces sync en <= 5 min,CP-RNF-14,--,,Completa
+42,RNF-15,RNF,Equipo (D-01 PE5),--,Sistema,P-Mant,--,Dado nueva especie de ganado / Cuando agrega / Entonces sin refactorizacion de modulos criticos,CP-RNF-15,--,,Completa
+43,RF-IA-01,IA Funcional,IA-01,--,ModeloPrediccion,P-IA,--,Dado historial 90 dias / Cuando solicita prediccion / Entonces demanda semanal por corte,CP-IA-01,--,"RF-10, RF-13",Completa
+44,RF-IA-02,IA Funcional,IA-01,--,ModeloPrediccion,P-IA,--,Dado prediccion generada / Cuando muestra / Entonces intervalo confianza 80%,CP-IA-02,--,"RF-10, RF-13",Completa
+45,RF-IA-03,IA Funcional,IA-01,--,ModeloPrediccion,P-IA,--,Dado confianza < 60% / Cuando predice / Entonces activa fallback con aviso,CP-IA-03,--,"RF-10, RF-13, RF-20",Completa
+46,RNF-IA-01,IA Rendimiento,IA-01,--,ModeloPrediccion,P-IA,--,Dado conjunto de prueba / Cuando mide exactitud / Entonces MAE <= 10 lb por corte,CP-IA-04,--,"RF-10, RF-13, RNF-11",Completa
+47,RNF-IA-02,IA Rendimiento,IA-01,--,ModeloPrediccion,P-IA,--,Dado solicitud de prediccion / Cuando infiere / Entonces resultado < 5s,CP-IA-05,--,"RF-10, RF-13, RNF-11",Completa
+48,RNF-IA-03,IA Rendimiento,IA-01,--,ModeloPrediccion,P-IA,--,Dado 10000 registros / Cuando reentrena / Entonces < 30 min sin interrumpir inferencia,CP-IA-06,--,"RF-10, RF-13, RNF-02",Completa
+49,RNF-IA-04,IA Equidad,IA-01,--,ModeloPrediccion,P-IA,--,Dado temporada alta vs ordinaria / Cuando mide MAE / Entonces diferencia <= 30%,CP-IA-07,--,"RF-10, RF-13",Completa
+50,RNF-IA-05,IA Equidad,IA-01,--,ModeloPrediccion,P-IA,--,Dado corte mayor vs menor precision / Cuando mide MAE relativo / Entonces diferencia <= 20 pp,CP-IA-08,--,"RF-10, RF-13",Completa
+51,RNF-IA-06,IA Explicabilidad,IA-01,--,ModeloPrediccion,P-IA,--,Dado prediccion generada / Cuando muestra / Entonces 3 factores en lenguaje natural,CP-IA-09,--,"RF-10, RF-13",Completa
+52,RF-IA-04,IA Funcional,IA-02,--,DetectorAnomalia,P-IA,--,Dado incidente registrado / Cuando clasifica / Entonces riesgo alto o bajo en pantalla,CP-IA-10,--,"RF-09, RF-20",Completa
+53,RF-IA-05,IA Funcional,IA-02,--,DetectorAnomalia,P-IA,--,Dado clasificacion emitida / Cuando muestra / Entonces probabilidad y recomendacion,CP-IA-11,--,"RF-09, RF-20",Completa
+54,RF-IA-06,IA Funcional,IA-02,--,DetectorAnomalia,P-IA,--,Dado decision del administrador / Cuando registra / Entonces accion y motivo guardados,CP-IA-12,--,"RF-09, RF-20, RNF-07",Completa
+55,RNF-IA-07,IA Rendimiento,IA-02,--,DetectorAnomalia,P-IA,--,Dado conjunto de prueba / Cuando mide recall clase alto / Entonces >= 0.90,CP-IA-13,--,"RF-09, RF-20",Completa
+56,RNF-IA-08,IA Rendimiento,IA-02,--,DetectorAnomalia,P-IA,--,Dado registro de incidente confirmado / Cuando clasifica / Entonces resultado < 2s,CP-IA-14,--,"RF-09, RF-20, RNF-02",Completa
+57,RNF-IA-09,IA Rendimiento,IA-02,--,DetectorAnomalia,P-IA,--,Dado modelo no disponible / Cuando activa fallback / Entonces respuesta < 500ms,CP-IA-15,--,"RF-09, RF-20, RNF-02",Completa
+58,RNF-IA-10,IA Equidad,IA-02,--,DetectorAnomalia,P-IA,--,Dado pollo vs res/cerdo / Cuando mide sensibilidad / Entonces diferencia <= 10 pp,CP-IA-16,--,"RF-09, RF-20",Completa
+59,RNF-IA-11,IA Equidad,IA-02,--,DetectorAnomalia,P-IA,--,Dado incidentes nocturnos vs diurnos / Cuando mide error / Entonces diferencia <= 15 pp,CP-IA-17,--,"RF-09, RF-20",Completa
+60,RNF-IA-12,IA Explicabilidad,IA-02,--,DetectorAnomalia,P-IA,--,Dado clasificacion riesgo alto / Cuando muestra / Entonces 2 factores en lenguaje natural < 2s,CP-IA-18,--,"RF-09, RF-20, RNF-07",Completa
