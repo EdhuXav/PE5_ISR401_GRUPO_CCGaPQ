@@ -1215,9 +1215,70 @@ Componentes de IA especificados & $\geq$ 2 & 2 (IA-01, IA-02) & Con todos los m�
 \label{tab:kpis}
 \end{table}
 
+%==============================================================
+\section{Conclusiones}
+\label{sec:conclusiones}
+%==============================================================
+
+\begin{description}
+  \item[Conclusión 1 -- Planificación (Unidad I):] La identificación temprana de los stakeholders mediante la matriz poder/interés fue determinante para la calidad del ERS de CarniCore. La propietaria (alta poder/alto interés) proporcionó el 64\% de los requisitos funcionales en la primera ronda (RF-01 a RF-16), mientras que el encargado de bodega y el carnicero aportaron los requisitos de continuidad operativa (RF-21) y despiece (RF-06). Un plan de IR que ignorara los roles operativos habría producido un ERS incompleto en los procesos de bodega, que son los de mayor uso diario del sistema.
+
+  \item[Conclusión 2 -- Especificación (Unidad II):] La adopción del formato Connextra más Gherkin para las historias de usuario fue la decisión de especificación con mayor impacto positivo verificable: las 17 HU de prioridad Must tienen criterios de aceptación directamente ejecutables como casos de prueba. Este enfoque redujo el número de defectos detectados en la inspección Fagan a solo 17 en el ERS v1.0 (densidad 0,71 def/pág), con corrección al 100\% de los críticos y mayores.
+
+  \item[Conclusión 3 -- Modelado (Unidad III):] La separación entre \texttt{Lote} (aves, por cantidad) y \texttt{Animal} (cerdo y res, por número de arete) en el diagrama de clases es la decisión de modelado de mayor impacto regulatorio: resuelve directamente el requerimiento de Agrocalidad de trazabilidad individual por animal. Esta decisión emergió de la observación directa en la planta (EV-09), confirmando el valor complementario de la observación como técnica de elicitación.
+
+  \item[Conclusión 4 -- Validación y Gestión (Unidad IV):] La inspección Fagan detectó 17 defectos en el ERS v1.0, de los cuales el 76,4\% eran críticos o mayores, concentrados en los requisitos que sustentan la propuesta de valor del sistema. El proceso de CCB demostró que el análisis de impacto basado en la matriz de trazabilidad es operativamente superior a la estimación intuitiva: el RFC-03 (firma veterinaria) evidenció que RF-02 no estaba efectivamente conectado con RF-23, un riesgo regulatorio que solo la trazabilidad hizo visible.
+
+  \item[Conclusión 5 -- Integración y Métricas (Unidad V):] Las seis métricas de calidad del ERS, calculadas con datos reales del ERS v3.0 y re-medidas sobre el v4.0, muestran que el proceso de corrección fue efectivo: M6 pasó de 0,10 a 0,00 defectos por requisito, M1a de 95,0\% a 97,5\%, M4ade de 92,0\% a 96,0\%, y M2 de 0,9987 a 1,0000. La especificación de los dos componentes de IA demuestra que el ERS v4.0 tiene madurez suficiente para sustentar extensiones de mayor complejidad técnica, con requisitos funcionales, de rendimiento, equidad y explicabilidad debidamente trazados al ERS base.
+\end{description}
+
 %--- REFERENCIAS ---
 \newpage
 \bibliographystyle{IEEEtran}
 \bibliography{referencias}
+
+%==============================================================
+% ANEXOS
+%==============================================================
+\appendix
+
+\section{Instrumento de Auditoría de Calidad del ERS (Datos Auditables)}
+\label{anx:auditoria}
+
+\begin{longtable}{|p{1.2cm}|p{2cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{3cm}|}
+\hline
+\textbf{Req.} & \textbf{ID} & \textbf{Prioridad} & \textbf{Fuente (EV)} & \textbf{CA-BDD} & \textbf{4 Atrib. OK} & \textbf{Nota} \\
+\hline
+RF-01 & RF-01 & Must & EV-01 & CA-01 & Sí & -- \\
+RF-02 & RF-02 & Must & EV-02 & CA-02 & Sí & -- \\
+RF-03 & RF-03 & Must & EV-03 & CA-03 & Sí & -- \\
+RF-04 & RF-04 & Must & EV-04 & CA-04 & Sí & -- \\
+RF-05 & RF-05 & Should & EV-04 & CA-05 & Sí & -- \\
+RF-06 & RF-06 & Must & EV-05 & CA-06 & Sí & -- \\
+RF-07 & RF-07 & Must & EV-06 & CA-07 & Sí & -- \\
+RF-08 & RF-08 & Must & EV-06 & CA-08 & Sí & Umbral $\leq$1 día corregido (D-04) \\
+RF-09 & RF-09 & Must & EV-07 & CA-09 & Sí & Dep. RF-20 añadida (D-05) \\
+RF-10 & RF-10 & Must & EV-08 & CA-10 & Sí & -- \\
+RF-11 & RF-11 & Must & EV-03 & CA-11 & Sí & Comportamiento cadena incompleta (D-08) \\
+RF-12 & RF-12 & Should & EV-09 & CA-12 & Sí & BDD presente \\
+RF-13 & RF-13 & Must & EV-08 & CA-13 & Sí & Derivó en RF-27 (D-13) \\
+RF-14 & RF-14 & Should & EV-08 & CA-14 & Sí & -- \\
+RF-15 & RF-15 & Must & EV-01 & CA-15 & Sí & -- \\
+RF-16 & RF-16 & Must & EV-09 & CA-16 & Sí & Excluye offline pendiente (D-11) \\
+RF-17 & RF-17 & Should & EV-10 & CA-17 & Sí & Enlazado a CU-01 (D-02 PE5) \\
+RF-18 & RF-18 & Could & EV-11 & -- & No & Sin CA-BDD formal; excepción documentada \\
+RF-19 & RF-19 & Must & EV-11 & CA-19 & Sí & Regla de solape añadida (D-09) \\
+RF-20 & RF-20 & Must & EV-12 & CA-20 & Sí & -- \\
+RF-21 & RF-21 & Must & EV-13 & CA-21 & Sí & -- \\
+RF-22 & RF-22 & Should & EV-14 & CA-22 & Sí & Conserva contador vida útil (D-06) \\
+RF-23 & RF-23 & Must & EV-15 & CA-23 & Sí & Incluye firma veterinaria (RFC-03) \\
+RF-24 & RF-24 & Should & EV-09 & CA-24 & Sí & CP-24 asignado en v4.0 \\
+RF-25 & RF-25 & Could & EV-03 & CA-25 & Sí & BDD y CP-25 formalizados en v4.0 \\
+RNF-01 a RNF-15 & (ver ERS) & Var. & Var. & CA-Rxx & Sí & RNF-02/12/14 corregidos; RNF-05 corregido \\
+\hline
+\textbf{Total} & \textbf{40 req.} & & & & \textbf{39/40} & RF-18 documentado \\
+\hline
+\caption{Conteos base para M1 (Completitud) -- ERS v4.0 CarniCore}
+\end{longtable}
 
 \end{document}
