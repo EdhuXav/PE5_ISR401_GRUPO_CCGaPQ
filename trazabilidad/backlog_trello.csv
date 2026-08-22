@@ -1,0 +1,118 @@
+Card ID,Card Name,Card URL,Card Description,Labels,Members,Due Date,Attachment Count,Attachment Links,Checklist Item Total Count,Checklist Item Completed Count,Vote Count,Comment Count,Last Activity Date,List ID,List Name,Board ID,Board Name,Archived,Start Date,Due Complete,Due Reminder,Priority
+6a88f75e1db4a34c5c716595,Registrar proveedor (RF-01),https://trello.com/c/Fx5GEhnf/1-registrar-proveedor-rf-01,"**HU-01 (trazada a RF-01)**
+
+Como administradora del negocio, quiero registrar un proveedor con su RUC validado, para asegurar que solo trabajo con proveedores regularizados ante el SRI.
+
+**Criterio de aceptación (Gherkin):** Dado que ingreso al módulo de proveedores, Cuando intento guardar un proveedor sin un RUC de 13 dígitos válido, Entonces el sistema rechaza el registro y muestra un mensaje de error.","EV-01 (sky), HU-01 (yellow_dark)",arielomarcastrobajana,,0,,0,0,0,0,2026-08-22T02:42:43.138Z,6a88f70c4989d755a6cfe926,Backlog,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a88f987029dbe9ad29c03c1,Registrar guía de origen (RF-02),https://trello.com/c/26NgZKRI/2-registrar-gu%C3%ADa-de-origen-rf-02,"**HU-02 (trazada a RF-02)**
+
+Como encargado de bodega, quiero registrar la guía de origen de un lote, para cumplir con la trazabilidad exigida por Agrocalidad antes de aceptar el ingreso.
+
+**Criterio de aceptación (Gherkin):** Dado que un proveedor no tiene guía de origen registrada, Cuando intento registrar el ingreso de un lote asociado a ese proveedor, Entonces el sistema rechaza el registro del lote hasta que exista una guía de origen.","EV-02 (sky), HU-02 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:25:13.164Z,6a88f70c4989d755a6cfe926,Backlog,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a88f9dbbed4945e8ae6b1af,Georreferencia proveedor (RF-17),https://trello.com/c/LgnabvBH/4-georreferencia-proveedor-rf-17,"**HU-17 — RF-17**
+Como administrador general, quiero asociar coordenadas de la granja de origen al perfil del proveedor, para enriquecer la trazabilidad.
+**Gherkin:** Dado que el campo de georreferencia es opcional, Cuando lo dejo vacío, Entonces el proveedor se guarda igual; Cuando ingreso coordenadas fuera de Ecuador continental, Entonces el sistema rechaza el valor.","EV-10 (sky), HU-17 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:31:10.960Z,6a88f70c4989d755a6cfe926,Backlog,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Should
+6a88fbe3d3ddbc9579114ff6,Historial de precios (RF-18),https://trello.com/c/PsnJL8hT/5-historial-de-precios-rf-18,"**HU-18** — RF-18
+Como propietaria, quiero consultar el histórico de precios por libra por producto y rango de fechas, para analizar la evolución de mis costos.
+**Gherkin:** Dado que existen cambios de precio registrados, Cuando consulto el histórico, Entonces el sistema muestra fecha, precio anterior, precio nuevo y usuario que lo modificó.","EV-11 (sky), HU-18 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:31:33.527Z,6a88f70c4989d755a6cfe926,Backlog,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Could
+6a88ffee9799b6838e888f64,Generar QR trazabilidad (RF-25),https://trello.com/c/vVgV69gr/6-generar-qr-trazabilidad-rf-25,"**HU-25** — RF-25
+Como cliente, quiero escanear el QR de un lote/animal, para consultar públicamente su trazabilidad.
+**Gherkin:** Dado que el lote tiene QR generado, Cuando lo escaneo, Entonces se muestra la vista pública de trazabilidad con los datos autorizados.","EV-03 (sky), HU-25 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:31:56.208Z,6a88f70c4989d755a6cfe927,En proceso,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Could
+6a89005441aa54979cd0c136,Vista pública QR - campos delimitados (RF-26),https://trello.com/c/EUdAiJes/7-vista-p%C3%BAblica-qr-campos-delimitados-rf-26,"**HU-26**
+Vista pública QR — campos delimitados
+Como cliente, quiero que la vista pública de trazabilidad (accedida vía QR) muestre solo los campos autorizados para consulta externa, para que no se exponga información interna sensible (costos, proveedores completos, etc.) al escanear el código.
+
+**Gherkin:**
+Dado que un cliente escanea el QR de un lote,
+Cuando accede a la vista pública de trazabilidad,
+Entonces el sistema muestra únicamente los campos delimitados como públicos (origen, fechas, cámara) y oculta costos y datos internos del proveedor.","CCB (pink_dark), EV-03 (sky), HU-26 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:32:43.076Z,6a88f70c4989d755a6cfe927,En proceso,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a8900c9a6afed7330f92d5b,Filtrar reportes por proveedor (RF-27),https://trello.com/c/F8u4TTGg/8-filtrar-reportes-por-proveedor-rf-27,"**HU-27** — RF-27
+Filtrar reportes por proveedor
+Como propietaria, quiero filtrar los reportes gerenciales (ventas, compras, pérdidas) por proveedor específico, para evaluar el desempeño y costo de cada proveedor de forma individual.
+
+**Gherkin:**
+Dado que selecciono un proveedor en el filtro de reportes,
+Cuando genero el reporte,
+Entonces el sistema muestra únicamente los movimientos (compras, mermas, ventas asociadas) vinculados a ese proveedor en el rango de fechas indicado.","HU-27 (yellow_dark), RFC-01 (sky)",,,0,,0,0,0,0,2026-08-22T02:33:08.977Z,6a88f70c4989d755a6cfe927,En proceso,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a8901c37b493b5e3d1948a5,Registrar incidentes energia (RF-20),https://trello.com/c/OSqWi5a5/9-registrar-incidentes-energia-rf-20,"**HU-20 (trazada a RF-20)**
+
+Como administrador general, quiero registrar un corte de energía eléctrica, para sustentar con evidencia una eventual baja de producto por pérdida de cadena de frío.
+
+**Criterio de aceptación (Gherkin):** Dado que registro un incidente de corte de energía con hora de inicio y de restablecimiento, Cuando registro posteriormente una baja de producto en una cámara afectada, Entonces el sistema permite asociar el incidente como evidencia de la baja.","EV-12 (sky), HU-20 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:23:10.277Z,6a88f731b3d72037dded2a68,En revisión,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a89020427f1355db9c0c332,Operar en modo offline (RF-21),https://trello.com/c/7nXYoisQ/10-operar-en-modo-offline-rf-21,"**HU-21 (trazada a RF-21)**
+
+Como encargado de bodega, quiero seguir registrando ingresos y pesajes sin conexión a internet, para no detener la operación durante un corte de conectividad.
+
+**Criterio de aceptación (Gherkin):** Dado que el dispositivo pierde conectividad, Cuando registro un ingreso o un pesaje en modo offline, Entonces el sistema sincroniza la operación sin pérdida de datos dentro de los 5 minutos posteriores a la reconexión.","EV-13 (sky), HU-21 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:22:29.214Z,6a88f731b3d72037dded2a68,En revisión,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a89023cd85c9d9d7033de9d,Registrar devoluciones (RF-22),https://trello.com/c/SyRJt0E4/11-registrar-devoluciones-rf-22,"**HU-22 — RF-22**
+Como encargado de bodega, quiero registrar la devolución total o parcial de un producto vendido, para reingresarlo al inventario o darlo de baja.
+**Gherkin**: Dado que un cliente devuelve un producto, Cuando registro la devolución, Entonces queda vinculada a la venta original mediante el número de factura referenciado.","EV-14 (sky), HU-22 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:33:32.071Z,6a88f731b3d72037dded2a68,En revisión,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Should
+6a890257e25badf03a519cb3,Exportar evidencia Agrocalidad (RF-23),https://trello.com/c/TTy787Zk/12-exportar-evidencia-agrocalidad-rf-23,"**HU-23 (trazada a RF-23)**
+
+Como administrador general, quiero exportar la trazabilidad completa de un lote en PDF, para presentarla ante una auditoría de Agrocalidad.
+
+**Criterio de aceptación (Gherkin):** Dado que un lote tiene trazabilidad completa registrada, Cuando exporto la evidencia de trazabilidad, Entonces el sistema genera un archivo PDF con los mismos datos mostrados en la consulta de trazabilidad.","EV-15 (sky), HU-23 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:21:53.203Z,6a88f731b3d72037dded2a68,En revisión,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,false,,Must
+6a8902dab08b451f20995d73,Registrar ingreso lote/animal (RF-03),https://trello.com/c/ls166IY3/13-registrar-ingreso-lote-animal-rf-03,"Como encargado de bodega, quiero registrar el ingreso de animales por número de arete, para mantener la trazabilidad individual exigida por Agrocalidad.
+
+Criterio de aceptación (Gherkin): Dado que registro el ingreso de un cerdo o res, Cuando el número de arete ingresado ya existe en el sistema, Entonces el sistema rechaza el registro y muestra un mensaje de duplicidad.",HU-03 (yellow_dark),,,0,,0,0,0,0,2026-08-22T02:11:27.408Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
+6a89032aeaa0c971f999d4db,"Pesaje + comprobante (RF-04, RF-05)",https://trello.com/c/Qt5YfkCq/14-pesaje-comprobante-rf-04-rf-05,"**HU-04 (trazada a RF-04)**
+
+Como encargado de bodega, quiero que el sistema calcule automáticamente el costo total al pesar un producto, para evitar errores de cálculo manual.
+
+**Criterio de aceptación (Gherkin):** Dado que ingreso el peso en libras y el precio por libra configurado, Cuando confirmo el registro de pesaje, Entonces el sistema muestra el costo total calculado en menos de 1 segundo.
+
+**HU-05**
+Como propietaria, quiero que el sistema emita un comprobante al confirmar un pesaje, para entregar un respaldo al proveedor.
+**Criterio de aceptación (Gherkin):**
+Dado que un pesaje ha sido confirmado,
+Cuando el usuario solicita emitir el comprobante,
+Entonces el sistema genera un ticket con fecha, proveedor, peso, precio y costo total en menos de 2 segundos.","HU-04 (yellow_dark), HU-05 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:34:49.290Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
+6a89036e4980380b2570220f,"Despiece, cámara, vida útil (RF-06, RF-08)",https://trello.com/c/9yHK5SFV/15-despiece-c%C3%A1mara-vida-%C3%BAtil-rf-06-rf-08,"**HU-06 (trazada a RF-06)**
+
+Como carnicero, quiero registrar el peso de cada corte obtenido al despostar un animal, para que el inventario refleje la clasificación real de productos.
+
+**Criterio de aceptación (Gherkin):** Dado que registro los cortes de un animal ya pesado, Cuando la suma de los pesos de los cortes supera el peso del animal más el margen de merma configurado, Entonces el sistema muestra una advertencia y solicita confirmación o corrección.
+
+**HU-07 (trazada a RF-07)**
+
+Como encargado de bodega, quiero registrar el ingreso de un producto a una cámara frigorífica específica, para mantener el inventario organizado por sección.
+
+**Criterio de aceptación (Gherkin):** Dado que un producto pasó por despiece o pesaje, Cuando lo registro como ingresado a una cámara sin indicar sección válida, Entonces el sistema no permite completar el registro.
+
+**HU-08 (trazada a RF-08)**
+
+Como administrador general, quiero recibir una alerta cuando un producto esté por vencer, para priorizar su venta o registrar su baja a tiempo.
+
+**Criterio de aceptación (Gherkin):** Dado que un producto está almacenado en cámara, Cuando falta un día o menos para el límite de vida útil configurado para su tipo, Entonces el sistema muestra una alerta visible en el panel del administrador general.","HU-06 (yellow_dark), HU-07 (yellow_dark), HU-08 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:16:00.326Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
+6a8903a97b1a8506ec5f0f26,"Baja + venta (RF-09, RF-10)",https://trello.com/c/feS9LY0T/16-baja-venta-rf-09-rf-10,"**HU-09 (trazada a RF-09)**
+
+Como administrador general, quiero aprobar las bajas de producto antes de que afecten el inventario, para sustentar las pérdidas con evidencia fotográfica.
+
+**Criterio de aceptación (Gherkin):** Dado que un encargado de bodega registra una baja de producto, Cuando la baja aún no ha sido aprobada por el administrador general, Entonces el inventario del sistema no refleja la baja.
+
+**HU-10 (trazada a RF-10)**
+
+Como encargado de bodega, quiero registrar la venta de un producto referenciando el número de factura externo, para mantener consistencia entre el inventario y la facturación.
+
+**Criterio de aceptación (Gherkin):** Dado que un cliente compra un producto disponible en inventario, Cuando confirmo el registro de la venta, Entonces el sistema descuenta automáticamente el producto de la cámara de origen.","HU-09 (yellow_dark), HU-10 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:16:38.519Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
+6a8904889231d84b93503265,"Trazabilidad + conteo (RF-11, RF-12)",https://trello.com/c/i86nsr2H/17-trazabilidad-conteo-rf-11-rf-12,"**HU-11 (trazada a RF-11)**
+
+Como propietaria, quiero consultar la trazabilidad completa de un producto por su número de arete, para responder de inmediato ante un requerimiento de Agrocalidad.
+
+**Criterio de aceptación (Gherkin):** Dado que ingreso un número de arete válido, Cuando solicito la consulta de trazabilidad, Entonces el sistema muestra la cadena completa (granja, guía, pesaje, cámara, venta) en menos de 3 segundos.
+
+**HU-12 — RF-12**
+Como administrador general, quiero registrar el conteo físico semanal de inventario por cámara, para compararlo contra el inventario del sistema y detectar diferencias.
+**Gherkin:** Dado que registro el conteo físico de una cámara, Cuando lo comparo contra el inventario del sistema, Entonces el sistema muestra automáticamente la diferencia en libras y en valor monetario.","HU-11 (yellow_dark), HU-12 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:29:30.003Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
+6a8904c3f84d5688ae0772bb,"Reportes, panel, usuarios (RF-12, RF-15)",https://trello.com/c/GGUThngX/18-reportes-panel-usuarios-rf-12-rf-15,,"HU-13 (yellow_dark), HU-14 (yellow_dark), HU-15 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:29:31.054Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
+6a89050ef4a7719a1b218da1,"Movimientos, precios, búsqueda (RF-16, RF-19, RF-24)",https://trello.com/c/IH4V3pEg/19-movimientos-precios-b%C3%BAsqueda-rf-16-rf-19-rf-24,"**HU-16 (trazada a RF-16)**
+
+Como administrador general, quiero consultar el stock de un producto en una fecha pasada, para verificar diferencias de inventario reportadas por bodega.
+
+**Criterio de aceptación (Gherkin):** Dado que existen movimientos de ingreso y egreso registrados para un producto, Cuando consulto el stock a una fecha específica, Entonces el sistema muestra el stock con 0% de margen de error respecto a los movimientos registrados hasta esa fecha.
+
+**HU-19 (trazada a RF-19)**
+
+Como propietaria, quiero configurar el precio por libra vigente de cada tipo de producto con una fecha de vigencia futura, para planificar cambios de precio por temporada.
+
+**Criterio de aceptación (Gherkin):** Dado que configuro un nuevo precio con vigencia a partir de una fecha futura, Cuando se registra un pesaje antes de esa fecha, Entonces el sistema aplica el precio anterior, no el nuevo.","HU-16 (yellow_dark), HU-19 (yellow_dark), HU-24 (yellow_dark)",,,0,,0,0,0,0,2026-08-22T02:29:32.509Z,6a88f70c4989d755a6cfe928,Hecho,6a88f70b4989d755a6cfe8f9,CarniCore-PE5,false,,true,,Must
