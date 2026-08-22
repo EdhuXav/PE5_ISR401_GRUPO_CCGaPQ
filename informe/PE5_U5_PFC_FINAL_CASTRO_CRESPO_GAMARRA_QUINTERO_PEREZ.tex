@@ -337,6 +337,153 @@ El ERS v4.0 aplica una priorización combinada de tres modelos \cite{pmbok7}: de
   \label{fig:wsjf}
 \end{figure}
 
+
+%==============================================================
+\section{ERS/SRS Final Integrado}
+\label{sec:ers}
+%==============================================================
+
+\subsection{Descripción y Versión Final}
+
+La versión de cierre del ERS/SRS de CarniCore es la \textbf{versión 4.0}, consolidada al 21 de agosto de 2026. Esta versión incorpora las correcciones derivadas de la inspección Fagan de la PE4 (13 defectos críticos y mayores corregidos, 4 menores diferidos) y de la auditoría de calidad de la PE5, y mantiene coherencia con ISO/IEC/IEEE 29148:2018 \cite{iso29148}. La evidencia de la PE5 se almacena en la carpeta \texttt{informe/} del repositorio \url{https://github.com/EdhuXav/PE5_ISR401_GRUPO_CCGaPQ}, con las instrucciones de compilación documentadas en el README.
+
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figuras/repo_estructura.png}
+  \caption{Estructura del repositorio GitHub de la PE5 del proyecto CarniCore}
+  \label{fig:contexto}
+\end{figure}
+
+
+\subsection{Resumen de Requisitos Funcionales}
+
+El ERS v4.0 contiene \textbf{27 requisitos funcionales}: los 25 RF originales (RF-01 a RF-25) más dos requisitos funcionales incorporados a partir del CCB de la PE4: RF-26 (vista pública de trazabilidad vía QR con campos delimitados) y RF-27 (filtro de reportes por proveedor).
+
+\begin{longtable}{|p{1.2cm}|p{5.5cm}|p{1.8cm}|p{4.5cm}|}
+\hline
+\textbf{ID} & \textbf{Nombre} & \textbf{MoSCoW} & \textbf{Fuente principal} \\
+\hline
+RF-01 & Registrar proveedor & Must & Propietaria -- EV-01 \\
+RF-02 & Registrar guía de origen & Must & Propietaria -- EV-02 \\
+RF-03 & Registrar ingreso de lote o animal & Must & Propietaria -- EV-03 \\
+RF-04 & Registrar pesaje de producto & Must & Propietaria -- EV-04 \\
+RF-05 & Emitir comprobante de pesaje & Should & Propietaria -- EV-04 \\
+RF-06 & Registrar despiece y clasificación & Must & Carnicero -- EV-05 \\
+RF-07 & Registrar ingreso a cámara frigorífica & Must & Propietaria -- EV-06 \\
+RF-08 & Calcular y alertar vida útil & Must & Propietaria -- EV-06 \\
+RF-09 & Registrar baja de producto & Must & Propietaria -- EV-07 \\
+RF-10 & Registrar venta o salida de producto & Must & Propietaria -- EV-08 \\
+RF-11 & Consultar trazabilidad de producto & Must & Propietaria -- EV-03 \\
+RF-12 & Realizar conteo de inventario & Should & Admin. gral. -- EV-09 \\
+RF-13 & Generar reportes gerenciales & Must & Propietaria -- EV-08 \\
+RF-14 & Visualizar panel resumen & Should & Propietaria -- EV-08 \\
+RF-15 & Gestionar usuarios y roles & Must & Propietaria -- EV-01 \\
+RF-16 & Registrar movimientos por fecha & Must & Bodega -- EV-09 \\
+RF-17 & Georreferencia de proveedor & Should & Admin. gral. -- EV-10 \\
+RF-18 & Historial de precios & Could & Propietaria -- EV-11 \\
+RF-19 & Configurar precios por temporada & Must & Propietaria -- EV-11 \\
+RF-20 & Registrar incidentes de corte de energía & Must & Propietaria -- EV-12 \\
+RF-21 & Operar en modo offline & Must & Bodega -- EV-13 \\
+RF-22 & Registrar devoluciones & Should & Bodega -- EV-14 \\
+RF-23 & Exportar evidencia para auditoría & Must & Admin. gral. -- EV-15 \\
+RF-24 & Buscar producto por código de lote & Should & Bodega -- EV-09 \\
+RF-25 & Generar código QR de trazabilidad & Could & Cliente/Propietaria -- EV-03 \\
+RF-26 & Vista pública de trazabilidad vía QR (campos delimitados) & Must & CCB -- RFC implicito D-01 \\
+RF-27 & Filtrar reportes por proveedor & Must & CCB -- RFC-01 \\
+\hline
+\caption{Resumen de los 27 requisitos funcionales del ERS/SRS v4.0 de CarniCore}
+\label{tab:rf_resumen}
+\end{longtable}
+
+\subsection{Resumen de Requisitos No Funcionales}
+
+El ERS v4.0 contiene \textbf{15 requisitos no funcionales} (RNF-01 a RNF-15), organizados según las características de calidad de ISO/IEC 25010:2023 \cite{iso25010}: eficiencia de desempeño (RNF-01, RNF-11), fiabilidad (RNF-02, RNF-14), seguridad (RNF-03, RNF-07, RNF-12), interacción de usuario (RNF-04, RNF-13), mantenibilidad (RNF-05, RNF-15), portabilidad (RNF-06), adecuación funcional (RNF-08), compatibilidad (RNF-09) y flexibilidad (RNF-10).
+
+\subsection{Cambios Incorporados en la Versión Final (v4.0)}
+
+La versión 4.0 del ERS incorpora los siguientes cambios respecto a la v3.0, producto de la inspección Fagan de la PE4 y del CCB:
+
+\begin{enumerate}
+  \item \textbf{Correcciones de defectos críticos (D-01 a D-04):} RF-26 delimita los campos públicos del QR; RF-08 declara límites de vida útil por especie (pollo 3 días, res 7 días, cerdo 5 días, embutidos 15 días); RF-06 fija el margen de merma configurable (defecto 3\%, rango 1--8\%); RNF-02 añade el RTO de 30 minutos en horario de faenamiento.
+  \item \textbf{Correcciones de defectos mayores (D-05 a D-13):} RF-09 declara dependencia formal con RF-20; RF-22 especifica que el contador de vida útil se conserva en devoluciones; RNF-14 fija el plazo de sincronización en 5 minutos; RF-11 define el comportamiento ante cadena incompleta (etiqueta ``En proceso''); RF-19 prohíbe solape de vigencias de precio futuras; Glosario distingue merma de faenamiento y merma de despiece; RF-16 excluye operaciones offline no sincronizadas del cálculo de stock; RNF-12 añade gestión KMS; RF-13 deriva en RF-27 con filtro por proveedor.
+  \item \textbf{RFC aprobados por el CCB:} RF-27 (RFC-01), RNF-03 ampliado con MFA (RFC-02), firma veterinaria en RF-23 (RFC-03).
+  \item \textbf{Corrección de verificabilidad:} RNF-05 reescrito con criterio objetivo.
+  \item \textbf{Incorporación de la sección de IA:} Dos componentes de inteligencia artificial (IA-01 e IA-02) con sus fichas completas.
+  \item \textbf{Cierre de requisito huérfano:} RF-17 enlazado a CU-01 como flujo alternativo.
+  \item \textbf{Terminología consistente:} ``canal'' definida unívocamente en el glosario.
+\end{enumerate}
+
+\subsection{Descripción Detallada de los Requisitos No Funcionales Clave}
+
+\textbf{RNF-01 -- Eficiencia de desempeño:} Toda operación de registro debe completarse en menos de 1 segundo bajo condiciones normales de uso ($\leq$5 usuarios concurrentes) \cite{pohl2025}.
+
+\textbf{RNF-02 -- Fiabilidad:} El sistema debe estar disponible el 98\% del tiempo mensual. RTO de 30 minutos en horario de faenamiento y 2 horas fuera de ese horario.
+
+\textbf{RNF-03 -- Seguridad:} JWT con expiración de 8 horas; MFA mediante TOTP para roles con capacidad de aprobar bajas y configurar precios.
+
+\textbf{RNF-12 -- Seguridad (cifrado):} AES-256 en reposo; llaves gestionadas mediante KMS con rotación cada 90 días.
+
+\textbf{RNF-14 -- Fiabilidad (offline):} Sincronización de operaciones offline en máximo 5 minutos; modo offline sostenido por al menos 8 horas continuas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figuras/Context_Diagram.png}
+  \caption{Diagrama de contexto del sistema CarniCore -- relaciones externas e interfaces}
+  \label{fig:contexto}
+\end{figure}
+
+\subsection{Interfaces Externas del Sistema}
+
+\textbf{Interfaces de usuario:} CarniCore provee interfaz web responsiva e interfaz móvil. La Figura~\ref{fig:mockups} ilustra el flujo de pesaje (MU-03 a MU-06).
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/MU-03_inicio.png}
+    \caption*{MU-03: Selección de lote/animal}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/MU-04_proveedores.png}
+    \caption*{MU-04: Ingreso de peso}
+  \end{subfigure}
+  \vspace{0.4cm}
+  \begin{subfigure}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/MU-05_guias_origen.png}
+    \caption*{MU-05: Confirmación de costo calculado}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/MU-06_ingreso_lotes.png}
+    \caption*{MU-06: Comprobante generado}
+  \end{subfigure}
+  \caption{Mockups de alta fidelidad del flujo de pesaje (MU-03 a MU-06)}
+  \label{fig:mockups}
+\end{figure}
+
+\textbf{Interfaces de hardware:} Balanza Ohaus Scout STX Series, protocolo ASCII, puerto USB/serial.
+
+\textbf{Interfaces de software:} API REST interna con JSON y JWT; módulo de exportación PDF; módulo de sincronización offline (RF-21, sync $<$5 min).
+
+\subsection{Restricciones de Diseño y Supuestos}
+
+\begin{description}
+  \item[RD-1:] Identificación dual: bovinos y porcinos por arete individual; aves por lote. Exigencia de Agrocalidad.
+  \item[RD-2:] Sin facturación electrónica SRI.
+  \item[RD-3:] Continuidad offline obligatoria $\geq$8 horas (RF-21, RNF-14).
+  \item[RD-4:] Motor de base de datos relacional (PostgreSQL 15+).
+  \item[SU-1:] La distribuidora dispone de balanza con puerto USB o serial compatible con protocolo ASCII.
+  \item[SU-2:] Existe al menos un dispositivo con navegador moderno disponible en la planta.
+  \item[SU-3:] Los usuarios recibirán capacitación de al menos 4 horas antes del despliegue.
+  \item[SU-4:] La conectividad a internet estará disponible el 90\% del tiempo de operación.
+\end{description}
+
 %==============================================================
 
 
