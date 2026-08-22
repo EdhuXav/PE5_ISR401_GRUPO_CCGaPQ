@@ -1281,4 +1281,111 @@ RNF-01 a RNF-15 & (ver ERS) & Var. & Var. & CA-Rxx & Sí & RNF-02/12/14 corregid
 \caption{Conteos base para M1 (Completitud) -- ERS v4.0 CarniCore}
 \end{longtable}
 
+\section{Banco de Preguntas del Tribunal con Respuestas Preparadas}
+\label{anx:preguntas}
+
+\begin{longtable}{|p{0.5cm}|p{5cm}|p{8.5cm}|}
+\hline
+\textbf{N.º} & \textbf{Pregunta} & \textbf{Respuesta preparada con artefacto de respaldo} \\
+\hline
+1 & ¿Cuál es la frontera del sistema y qué queda fuera? & CarniCore gestiona trazabilidad, pesaje e inventario. Exclusiones explícitas (ERS v4.0 Secc. 1.2): facturación SRI, guías de movilización Agrocalidad, e-commerce, sensores IoT de temperatura, componentes de IA autónomos en producción. \\
+\hline
+2 & ¿Qué técnica les aportó los requisitos que no habrían descubierto de otro modo? & La observación directa en la planta: identificó RF-20 (incidentes de corte de energía) y RF-21 (modo offline) que la propietaria no verbalizó en las entrevistas. \\
+\hline
+3 & Elijan un RNF y expliquen cómo se comprueba objetivamente. & RNF-01: ``El cálculo del costo total al registrar un pesaje debe completarse en menos de 1 segundo.'' Se comprueba con 100 pesajes concurrentes y verificación del percentil 95 $<$1s. \\
+\hline
+4 & ¿Cuántos defectos halló la inspección y cuáles siguen abiertos? & La inspección Fagan de PE4 detectó 17 defectos únicos. Se corrigieron 13 críticos y mayores. Los 4 menores quedaron diferidos. La re-inspección PE5 encontró 4 defectos adicionales, todos corregidos en v4.0. M6 = 0,00. \\
+\hline
+5 & Tomen un RF y díganme qué se rompería si mañana cambia. & RF-07 es el nodo de mayor acoplamiento: afecta RF-08, RF-09, RF-10, RF-12, RF-16, RF-24 (6 RF). Ver Tabla~\ref{tab:m5}. \\
+\hline
+6 & ¿Qué RFC rechazó el CCB y con qué argumento? & No se rechazó ninguno. RFC-01 y RFC-03 se aprobaron directamente; RFC-02 (MFA) fue aprobado con condición: fallback de pregunta de seguridad para RF-21 (modo offline). \\
+\hline
+7 & ¿Cuál es la línea base vigente y dónde está etiquetada? & La línea base de la PE5 es \texttt{baseline-v1.1} en \url{https://github.com/EdhuXav/PE5_ISR401_GRUPO_CCGaPQ}. \\
+\hline
+8 & ¿Qué decide el modelo IA y qué pasa cuando se equivoca? & IA-01 predice demanda semanal; fallback: promedio histórico 4 semanas. IA-02 clasifica riesgo de incidente; fallback determinístico: corte $>$2h para pollo = riesgo alto. Ver Tablas~\ref{tab:ia01} y~\ref{tab:ia02}. \\
+\hline
+9 & ¿Con qué datos entrenarían el modelo y con qué base legal? & IA-01: historial de ventas RF-10, base legal Art. 6 LOPDP. IA-02: registros RF-20 y RF-09; sin datos personales, no aplica LOPDP. \\
+\hline
+10 & ¿Qué métrica salió peor y qué hicieron? & M6 antes = 0,10 def/req; se corrigieron los 4 defectos PE5 y se re-midió: M6 después = 0,00. Ver Tabla~\ref{tab:auditoria}. \\
+\hline
+\caption{Banco de preguntas del tribunal con respuestas preparadas -- CarniCore PE5}
+\end{longtable}
+
+\section{Declaración Individual de Aporte al PFC}
+\label{anx:aporte}
+
+\begin{longtable}{|p{3.7cm}|p{7cm}|p{3.2cm}|}
+\hline
+\textbf{Integrante} & \textbf{Aportes principales en PE5} & \textbf{Evidencia Git} \\
+\hline
+Castro Bajaña Ariel Omar &
+Integración de Introducción y Metodología; revisión de Validación; actualización de retrospectiva y consistencia editorial del informe. &
+Commits entre 20--21/08 en archivos de informe, validación y retrospectiva \\
+\hline
+Crespo Espinoza Kleber Obed &
+Revisión e integración de Modelos UML; verificación del ERS/SRS v4.0; apoyo al instrumento de auditoría y control de figuras/tablas. &
+Commits entre 20--21/08 en ERS, modelos UML, figuras y auditoría \\
+\hline
+Gamarra Araujo Edhu Xavier &
+Gestión y trazabilidad end-to-end; consolidación de la matriz base y extensión de IA; estructura del repositorio y control de línea base. &
+Commits entre 20--21/08 en trazabilidad, estructura y control Git \\
+\hline
+Pérez Ruiz Carlos Andrés &
+Requisitos de IA; revisión de métricas y aritmética; Resumen/Abstract; conclusiones y anexos de cierre. &
+Commits entre 17--19/08 en IA, métricas, resumen, conclusiones y anexos \\
+\hline
+Quintero Gende Erick Jahir &
+Inspección Fagan; gestión de RFC ante el CCB; verificación de RNF; banco de preguntas del tribunal y preparación de la defensa. &
+Commits entre 20--21/08 en validación, RFC, RNF y materiales de defensa \\
+\hline
+\caption{Distribución de aportes y evidencia Git para la PE5}
+\label{tab:aporte_individual}
+\end{longtable}
+
+\section{Retrospectiva Ampliada Start-Stop-Continue}
+\label{anx:retro}
+
+\begin{longtable}{|p{2.5cm}|p{6cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Categoría} & \textbf{Acción de mejora} & \textbf{Responsable} & \textbf{Horizonte} \\
+\hline
+Start & Usar un checklist de atributos de RF al momento de escribir cada requisito (no al final). & Castro / Crespo & Inmediato \\
+\hline
+Start & Actualizar la matriz de trazabilidad al incorporar cada RF, no al cierre de la PE. & Gamarra & Inmediato \\
+\hline
+Stop & No agregar RF sin verificar antes si tiene CU, HU y CP asociados. & Todo el equipo & Inmediato \\
+\hline
+Continue & Continuar el registro de evidencias EV-XX con formato estandarizado desde la PE1. & Todo el equipo & Siguiente proyecto \\
+\hline
+Continue & Continuar con Git para versionado del LaTeX con commits descriptivos y frecuentes. & Gamarra & Siguiente proyecto \\
+\hline
+\caption{Acciones de mejora de la retrospectiva -- CarniCore PE5}
+\end{longtable}
+
+\section{Declaración de Uso de Inteligencia Artificial}
+\label{anx:ia_decl}
+
+El equipo declara el siguiente uso de herramientas de inteligencia artificial en la elaboración de este informe:
+
+\begin{longtable}{|p{3cm}|p{4cm}|p{3cm}|p{3.5cm}|}
+\hline
+\textbf{Sección del informe} & \textbf{Herramienta} & \textbf{Tipo de asistencia} & \textbf{Método de validación} \\
+\hline
+Secciones 1, 2, 3 (Introducción, Metodología, ERS) & Claude (Anthropic) y ChatGPT (OpenAI) & Corrección de estilo y ortografía; mejora de coherencia entre párrafos & Revisión íntegra por todos los integrantes contra los artefactos del ERS v4.0; ninguna afirmación técnica fue aceptada sin contraste con el documento fuente \\
+\hline
+Secciones 4, 5, 6 (UML, Validación, Trazabilidad) & Claude (Anthropic) & Revisión de redacción técnica; formateo de tablas LaTeX con entornos \texttt{longtable} & Verificación de contenido contra los diagramas UML originales y la matriz de trazabilidad; los identificadores de defecto y RFC fueron cotejados uno a uno con el registro del CCB \\
+\hline
+Sección 7 (Requisitos de IA) & Claude (Anthropic); Google Scholar para búsqueda de referencias & Sugerencia de estructura de fichas IA-01/IA-02; corrección de redacción de RNF de equidad y explicabilidad & DOI de cada referencia verificado en \url{https://doi.org}; umbrales y métricas validados por el equipo contra los datos del dominio de CarniCore \\
+\hline
+Sección 8 (Métricas de calidad) & Calculadora científica y hoja de cálculo Google Sheets & Verificación aritmética independiente de M1--M6 & Conteos base realizados manualmente sobre el ERS v4.0 por dos integrantes de forma independiente; resultados cotejados antes de incluirlos en el informe \\
+\hline
+Secciones 9 y 10 (Retrospectiva y Conclusiones) & Claude (Anthropic) & Revisión de ortografía y cohesión de párrafos & Contenido de retrospectiva y conclusiones integradoras redactado y validado íntegramente por el equipo; la IA no generó juicios ni análisis \\
+\hline
+Anexos A--D & ChatGPT (OpenAI) & Apoyo en formato de tablas LaTeX & Datos del instrumento de auditoría, banco de preguntas y declaraciones de aporte verificados por el equipo contra los artefactos entregados \\
+\hline
+\caption{Declaración de uso de inteligencia artificial -- CarniCore PE5}
+\end{longtable}
+
+\textit{Las secciones evaluativas (análisis, justificaciones de decisiones de ingeniería, conclusiones integradoras) son producción propia del equipo, verificada por todos los integrantes. El uso de asistentes de IA se limitó a corrección de estilo, ortografía y formato; ningún contenido evaluativo fue generado íntegramente por IA.}
+
 \end{document}
