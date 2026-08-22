@@ -1023,7 +1023,6 @@ Aplica LOPDP & Sí (datos de ventas con nombre/RUC) & No (datos operacionales si
 \label{tab:traza_ia}
 \end{longtable}
 
-
 %==============================================================
 \section{Métricas de Calidad del ERS}
 \label{sec:metricas}
@@ -1146,6 +1145,75 @@ M6 & Corrección & 0,10 def/req & \textbf{0,00 def/req} & $\leq$ 0,05 & ISO/IEC 
 \end{table}
 
 \textbf{Resultado global:} \textbf{6/6 métricas cumplen} el valor de referencia sobre el universo de 40 requisitos base del ERS v4.0.
+
+%==============================================================
+\section{Retrospectiva del Equipo}
+\label{sec:retrospectiva}
+%==============================================================
+
+\subsection{Metodología de la Retrospectiva}
+
+La retrospectiva de cierre se realizó al finalizar la PE5, en formato Start-Stop-Continue \cite{swebok2024,pmbok7}. Participaron todos los integrantes del equipo. Cada categoría contiene al menos tres elementos con responsable identificado.
+
+\subsection{Start-Stop-Continue}
+
+\begin{longtable}{|p{2.5cm}|p{8cm}|p{3cm}|}
+\hline
+\textbf{Categoría} & \textbf{Elemento} & \textbf{Responsable / Acción} \\
+\hline
+\multirow{4}{*}{\textbf{Start}} &
+Iniciar el registro formal de evidencias (EV-XX) desde la primera entrevista, no retroactivamente. & Castro Bajaña -- Próximo proyecto \\
+\cline{2-3}
+& Iniciar la revisión de trazabilidad en paralelo con la especificación de requisitos (PE2), no solo al cierre en PE5. & Crespo Espinoza -- Próximo proyecto \\
+\cline{2-3}
+& Iniciar el uso de etiquetas de versión en Git desde la PE1, no solo en la entrega final. & Gamarra Araujo -- Próximo proyecto \\
+\cline{2-3}
+& Iniciar reuniones de sincronización semanales breves (15 min) para detectar dependencias entre artefactos. & Pérez Ruiz -- Próximo proyecto \\
+\hline
+\multirow{3}{*}{\textbf{Stop}} &
+Dejar de agregar requisitos sin verificar su impacto en la matriz de trazabilidad. & Pérez Ruiz -- Inmediatamente \\
+\cline{2-3}
+& Dejar de redactar RNF en términos cualitativos sin umbral cuantificable. & Todo el equipo -- Inmediatamente \\
+\cline{2-3}
+& Dejar de concentrar los commits en un solo integrante. & Castro Bajaña / Gamarra Araujo -- Inmediatamente \\
+\hline
+\multirow{3}{*}{\textbf{Continue}} &
+Continuar con el formato Connextra + Gherkin para historias de usuario. & Todo el equipo \\
+\cline{2-3}
+& Continuar con la entrevista semiestructurada como técnica principal de elicitación. & Todo el equipo \\
+\cline{2-3}
+& Continuar con la priorización combinada MoSCoW + Kano + WSJF. & Todo el equipo \\
+\hline
+\caption{Retrospectiva Start-Stop-Continue del equipo CarniCore (PE5)}
+\label{tab:retrospectiva}
+\end{longtable}
+
+\subsection{Indicadores de Desempeño del Proyecto}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{2.5cm}|p{2.5cm}|p{4cm}|}
+\hline
+\textbf{Indicador} & \textbf{Valor objetivo} & \textbf{Valor alcanzado} & \textbf{Observaciones} \\
+\hline
+RF Must cubiertos por el MVP & 100\% & 100\% (17/17) & Todos con HU, CA y CP asociados \\
+\hline
+Densidad de defectos & $\leq$ 0,10 def/req & 0,00 (v4.0) & Los 4 defectos PE5 fueron corregidos \\
+\hline
+Cobertura trazabilidad adelante & $\geq$ 90\% & 96\% (v4.0) & RF-18 (Could) justificado \\
+\hline
+Sincronización backlog-ERS & $\geq$ 90\% & 96,3\% (26/27 RF con HU) & RF-18 (Could) sin HU, justificado \\
+\hline
+Versiones ERS con línea base & 4 & 4 & Tags verificables en repositorio \\
+\hline
+Métricas de calidad cumplidas & 6/6 & 6/6 & Todas ISO/IEC 25010:2023 en rango \\
+\hline
+Componentes de IA especificados & $\geq$ 2 & 2 (IA-01, IA-02) & Con todos los mínimos exigidos \\
+\hline
+\end{tabular}
+\caption{Indicadores de desempeño del proyecto CarniCore al cierre de PE5}
+\label{tab:kpis}
+\end{table}
 
 %--- REFERENCIAS ---
 \newpage
