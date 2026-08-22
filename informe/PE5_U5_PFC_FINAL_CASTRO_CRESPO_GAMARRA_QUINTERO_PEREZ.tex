@@ -851,6 +851,178 @@ RF-27 & CCB -- RFC-01 & CU-12 & Reporte & P-Rep & -- & Dado filtro proveedor, Cu
   \label{fig:despliegue}
 \end{figure}
 
+%==============================================================
+\section{Requisitos de Inteligencia Artificial}
+\label{sec:ia}
+%==============================================================
+
+\subsection{Justificación de los Componentes de IA}
+
+Si bien el ERS v3.0 declaró que CarniCore no incorporaba componentes de IA en su alcance inicial, la PE5 exige la especificación de al menos dos componentes de IA plausibles para el dominio del PFC \cite{vogelsang2019,ahmad2023,habibullah2023}. Se identificaron dos componentes con valor demostrable:
+
+\begin{description}
+  \item[IA-01 -- Predictor de Demanda por Tipo de Corte:] Anticipa la demanda semanal por tipo de corte entrenándose con el historial de RF-10 y RF-13.
+  \item[IA-02 -- Detector de Anomalías de Cadena de Frío:] Clasifica automáticamente el riesgo de pérdida de cadena de frío para cada cámara afectada por un incidente (RF-20).
+\end{description}
+
+\subsection{Clasificación de Riesgo (Reglamento UE 2024/1689)}
+
+Conforme al enfoque basado en riesgo del Reglamento (UE) 2024/1689 \cite{euai2024}, ambos componentes se clasifican como \textbf{riesgo mínimo}. Se aplican las obligaciones de \textbf{transparencia} del Artículo 50. Respecto a la normativa ecuatoriana, los datos de ventas con nombre/RUC de cliente quedan sujetos a la LOPDP \cite{lopdp2021} y su Reglamento \cite{lopdp_reg2023}.
+
+\subsection{Ficha IA-01: Predictor de Demanda por Tipo de Corte}
+
+\begin{longtable}{|p{3.5cm}|p{10cm}|}
+\hline
+\textbf{Campo} & \textbf{Contenido} \\
+\hline
+\textbf{Identificador} & IA-01 \\
+\hline
+\textbf{Nombre} & Predictor de Demanda por Tipo de Corte \\
+\hline
+\textbf{Tarea y tipo} & Regresión de series temporales: predice la demanda semanal (en libras) por tipo de corte. \\
+\hline
+\textbf{Entradas} & Historial de ventas últimos 90 días (RF-10, RF-13), día de semana, semana del mes, precio vigente (RF-19). \\
+\hline
+\textbf{Salida} & Predicción de demanda semanal en libras por tipo de corte, con intervalo de confianza del 80\%. \\
+\hline
+\textbf{Consumidor} & Propietaria y administrador general (planificación de compras). \\
+\hline
+\textbf{Fallback} & Si confianza $<$60\% o modelo no disponible: promedio histórico de las últimas 4 semanas con aviso visible. \\
+\hline
+\textbf{Datos de entrenamiento} & Origen: RF-10 (mínimo 6 meses). Volumen: 180+ registros diarios. Sesgo: semanas con cortes de energía. Base legal: Art. 6 LOPDP -- ejecución contractual. \\
+\hline
+\textbf{Clasificación de riesgo} & Riesgo mínimo (Reglamento UE 2024/1689, Art. 6). Transparencia ante el usuario (Art. 50). \\
+\hline
+\textbf{Plan de monitoreo} & Indicador: MAE semanal. Umbral de alerta: MAE $>$ 15 libras/tipo de corte. Reentrenamiento: MAE $>$ 15 lb por 3 semanas consecutivas. \\
+\hline
+\textbf{Trazas} & RF-10, RF-13, RF-19, RF-20; RNF-11. \\
+\hline
+\caption{Ficha del componente IA-01: Predictor de Demanda}
+\label{tab:ia01}
+\end{longtable}
+
+\subsubsection{Requisitos Funcionales de IA-01}
+
+\begin{description}
+  \item[RF-IA-01.] \textbf{Generar predicción de demanda semanal.} El sistema debe generar, para la semana inmediata siguiente, una predicción de demanda en libras por tipo de corte, a partir del historial de ventas de los últimos 90 días.
+  \item[RF-IA-02.] \textbf{Mostrar intervalo de confianza.} Para cada predicción generada, el sistema debe mostrar el intervalo de confianza del 80\% en libras.
+  \item[RF-IA-03.] \textbf{Activar fallback automático.} Cuando la confianza interna del modelo sea inferior al 60\% o el modelo no esté disponible, el sistema debe activar el mecanismo de respaldo con aviso visible.
+\end{description}
+
+\subsubsection{Requisitos No Funcionales de IA-01}
+
+\begin{description}
+  \item[RNF-IA-01.] \textbf{Exactitud (rendimiento).} MAE $\leq$ 10 libras por tipo de corte sobre el conjunto de prueba, medido antes de cada despliegue.
+  \item[RNF-IA-02.] \textbf{Tiempo de inferencia (rendimiento).} Generación completa en menos de 5 segundos bajo carga normal.
+  \item[RNF-IA-03.] \textbf{Escalabilidad (rendimiento).} Reentrenamiento con hasta 10.000 registros en menos de 30 minutos sin interrumpir el servicio de inferencia.
+  \item[RNF-IA-04.] \textbf{Equidad -- sesgo por temporada.} Diferencia entre MAE en temporada alta y semanas ordinarias $\leq$ 30\%, medida trimestralmente.
+  \item[RNF-IA-05.] \textbf{Equidad -- sesgo por tipo de corte.} Diferencia de MAE relativo entre el corte con mayor y menor precisión $\leq$ 20 puntos porcentuales.
+  \item[RNF-IA-06.] \textbf{Explicabilidad.} Para cada predicción, el sistema debe mostrar los tres factores con mayor peso en la estimación, en lenguaje natural.
+\end{description}
+
+\subsection{Ficha IA-02: Detector de Anomalías de Cadena de Frío}
+
+\begin{longtable}{|p{3.5cm}|p{10cm}|}
+\hline
+\textbf{Campo} & \textbf{Contenido} \\
+\hline
+\textbf{Identificador} & IA-02 \\
+\hline
+\textbf{Nombre} & Detector de Anomalías de Cadena de Frío \\
+\hline
+\textbf{Tarea y tipo} & Clasificación binaria: ``riesgo alto'' o ``riesgo bajo'' de pérdida de cadena de frío ante un incidente de corte de energía. \\
+\hline
+\textbf{Entradas} & Registros de incidentes RF-20: fecha, hora, duración, cámaras afectadas. Tipo de producto almacenado en cada cámara (RF-07). \\
+\hline
+\textbf{Salida} & Clasificación ``riesgo alto'' / ``riesgo bajo'', con probabilidad de clase y recomendación de acción. \\
+\hline
+\textbf{Consumidor} & Administrador general (decisión de iniciar baja RF-09). \\
+\hline
+\textbf{Fallback} & Regla determinística: corte $>$2 h para pollo o $>$4 h para res/cerdo = ``riesgo alto'' automático. \\
+\hline
+\textbf{Datos de entrenamiento} & Origen: RF-20 y RF-09 (mínimo 12 meses, 50 incidentes etiquetados). Base legal: no aplica LOPDP (sin datos personales). \\
+\hline
+\textbf{Clasificación de riesgo} & Riesgo mínimo (Reglamento UE 2024/1689, Art. 6). Transparencia ante el usuario (Art. 50). \\
+\hline
+\textbf{Plan de monitoreo} & Indicador: tasa de falsos negativos mensual. Umbral de alerta: $>$10\% durante el mes. Reentrenamiento: $>$10\% por 2 meses consecutivos o 20 nuevos incidentes etiquetados. \\
+\hline
+\textbf{Trazas} & RF-09, RF-20, RNF-02 (disponibilidad), RNF-07 (auditoría de bajas). \\
+\hline
+\caption{Ficha del componente IA-02: Detector de Anomalías de Cadena de Frío}
+\label{tab:ia02}
+\end{longtable}
+
+\subsubsection{Requisitos Funcionales de IA-02}
+
+\begin{description}
+  \item[RF-IA-04.] \textbf{Clasificar riesgo de incidente.} Al registrar un incidente (RF-20), el sistema debe clasificar automáticamente el riesgo como ``alto'' o ``bajo'' y mostrarlo al administrador en la misma pantalla.
+  \item[RF-IA-05.] \textbf{Mostrar probabilidad y recomendación.} Para cada clasificación, el sistema debe mostrar la probabilidad de ``riesgo alto'' y una recomendación en lenguaje natural.
+  \item[RF-IA-06.] \textbf{Registrar decisión del administrador.} El sistema debe permitir al administrador registrar la acción real tomada y el motivo.
+\end{description}
+
+\subsubsection{Requisitos No Funcionales de IA-02}
+
+\begin{description}
+  \item[RNF-IA-07.] \textbf{Sensibilidad (rendimiento).} Recall de la clase ``riesgo alto'' $\geq$ 0,90 sobre el conjunto de prueba.
+  \item[RNF-IA-08.] \textbf{Tiempo de inferencia (rendimiento).} Clasificación en menos de 2 segundos desde que el usuario confirma el registro del incidente.
+  \item[RNF-IA-09.] \textbf{Disponibilidad del fallback (rendimiento).} El mecanismo determinístico debe activarse en menos de 500 ms cuando el modelo no esté disponible.
+  \item[RNF-IA-10.] \textbf{Equidad -- sesgo por tipo de producto.} Diferencia de sensibilidad entre la clase ``pollo'' y ``res/cerdo'' $\leq$ 10 puntos porcentuales.
+  \item[RNF-IA-11.] \textbf{Equidad -- sesgo por horario.} Diferencia de tasa de error entre incidentes nocturnos y diurnos $\leq$ 15 puntos porcentuales, medida mensualmente.
+  \item[RNF-IA-12.] \textbf{Explicabilidad.} Para cada clasificación de riesgo alto, el sistema debe mostrar los dos factores más influyentes en lenguaje natural y en menos de 2 segundos.
+\end{description}
+
+\subsection{Análisis Comparativo entre IA-01 e IA-02}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3.5cm}|p{5.5cm}|p{5.5cm}|}
+\hline
+\textbf{Dimensión} & \textbf{IA-01 (Predictor de Demanda)} & \textbf{IA-02 (Detector Anomalías)} \\
+\hline
+Tipo de tarea & Regresión (predicción numérica) & Clasificación binaria \\
+\hline
+Datos de entrenamiento & RF-10 histórico: 180+ registros diarios, mínimo 6 meses & RF-20 y RF-09: 50 incidentes etiquetados mínimo \\
+\hline
+Métrica principal & MAE $\leq$ 10 lb/corte & Recall clase ``riesgo alto'' $\geq$ 0,90 \\
+\hline
+Consecuencia del error & Sobrestock o ruptura de stock (pérdida económica moderada) & Falso negativo = pérdida de cadena de frío no detectada \\
+\hline
+Aplica LOPDP & Sí (datos de ventas con nombre/RUC) & No (datos operacionales sin personas) \\
+\hline
+\end{tabular}
+\caption{Comparativa de los dos componentes de IA especificados para CarniCore}
+\label{tab:comparativa_ia}
+\end{table}
+
+\subsection{Trazado de Requisitos de IA}
+
+\begin{longtable}{|p{2cm}|p{2cm}|p{3cm}|p{5.5cm}|}
+\hline
+\textbf{Fila} & \textbf{Requisito IA} & \textbf{Tipo} & \textbf{Trazas base} \\
+\hline
+43 & RF-IA-01 & Funcional & RF-10, RF-13 \\
+44 & RF-IA-02 & Funcional & RF-10, RF-13 \\
+45 & RF-IA-03 & Funcional & RF-10, RF-13, RF-20 \\
+46 & RNF-IA-01 & Rendimiento & RF-10, RF-13, RNF-11 \\
+47 & RNF-IA-02 & Rendimiento & RF-10, RF-13, RNF-11 \\
+48 & RNF-IA-03 & Rendimiento & RF-10, RF-13, RNF-02 \\
+49 & RNF-IA-04 & Equidad & RF-10, RF-13 \\
+50 & RNF-IA-05 & Equidad & RF-10, RF-13 \\
+51 & RNF-IA-06 & Explicabilidad & RF-10, RF-13 \\
+52 & RF-IA-04 & Funcional & RF-09, RF-20 \\
+53 & RF-IA-05 & Funcional & RF-09, RF-20 \\
+54 & RF-IA-06 & Funcional & RF-09, RF-20, RNF-07 \\
+55 & RNF-IA-07 & Rendimiento & RF-09, RF-20 \\
+56 & RNF-IA-08 & Rendimiento & RF-09, RF-20, RNF-02 \\
+57 & RNF-IA-09 & Rendimiento & RF-09, RF-20, RNF-02 \\
+58 & RNF-IA-10 & Equidad & RF-09, RF-20 \\
+59 & RNF-IA-11 & Equidad & RF-09, RF-20 \\
+60 & RNF-IA-12 & Explicabilidad & RF-09, RF-20, RNF-07 \\
+\hline
+\caption{Extensión de trazabilidad de requisitos de IA -- filas 43--60}
+\label{tab:traza_ia}
+\end{longtable}
+
 
 %--- REFERENCIAS ---
 \newpage
